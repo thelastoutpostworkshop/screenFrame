@@ -42,6 +42,7 @@ void loop()
 void initPixels(void)
 {
     pixels.begin();
+    pixels.setBrightness(DEFAULT_BRIGHTNESS);
     pixels.clear();
     pixels.show();
 }
@@ -58,7 +59,6 @@ void showDrawFrame(uint32_t color) {
 void showRainBow(void)
 {
     pixels.rainbow();
-    pixels.setBrightness(100);
     pixels.show();
 }
 
