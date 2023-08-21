@@ -23,6 +23,8 @@ void setup()
         1,                    /* Priority of the task */
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
+        
+    showRainBow();
 }
 
 void loop()
@@ -34,13 +36,20 @@ void loop()
 void initPixels(void)
 {
     pixels.begin();
+}
+
+void showRainBow(void)
+{
     pixels.rainbow();
+    pixels.setBrightness(100);
     pixels.show();
 }
 
-void handleBrowserCalls(void * parameter)
+// Task for the web browser
+//
+void handleBrowserCalls(void *parameter)
 {
-    for(;;)
+    for (;;)
     {
         server.handleClient();
         delay(1); // allow other tasks to run
