@@ -4,7 +4,7 @@
 
 // Neopixels
 #define PIXELSPIN 13
-#define PIXELSCOUNT 150
+#define PIXELSCOUNT 119
 
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
@@ -23,7 +23,7 @@ void setup()
         1,                    /* Priority of the task */
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
-        
+
     showRainBow();
 }
 
@@ -36,6 +36,8 @@ void loop()
 void initPixels(void)
 {
     pixels.begin();
+    pixels.clear();
+    pixels.show();
 }
 
 void showRainBow(void)
