@@ -30,7 +30,7 @@ void setup()
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
 
-    showDrawFrame(COLOR_WHITE);
+    showColor(COLOR_BLUE);
 }
 
 void loop()
@@ -54,6 +54,11 @@ void showDrawFrame(uint32_t color) {
         pixels.show();
         delay(50);
     }
+}
+
+void showColor(uint32_t color) {
+    pixels.fill(color);
+    pixels.show();
 }
 
 void showRainBow(void)
