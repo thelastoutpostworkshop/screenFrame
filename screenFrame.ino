@@ -8,6 +8,12 @@
 
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
+#define COLOR_WHITE pixels.Color(255, 255, 255)
+#define COLOR_RED   pixels.Color(255, 0, 0)
+#define COLOR_GREEN pixels.Color(0, 255, 0)
+#define COLOR_BLUE  pixels.Color(0, 0, 255)
+#define DEFAULT_BRIGHTNESS 100
+
 void setup()
 {
     Serial.begin(115200);
@@ -24,7 +30,7 @@ void setup()
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
 
-    showRainBow();
+    showDrawFrame(COLOR_WHITE);
 }
 
 void loop()
@@ -38,6 +44,15 @@ void initPixels(void)
     pixels.begin();
     pixels.clear();
     pixels.show();
+}
+
+void showDrawFrame(uint32_t color) {
+    for (int i = 0; i < PIXELSCOUNT; i++)
+    {
+        pixels.setPixelColor(i,color);
+        pixels.show();
+        delay(50);
+    }
 }
 
 void showRainBow(void)
