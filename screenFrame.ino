@@ -12,9 +12,9 @@ Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 #define COLOR_RED pixels.Color(255, 0, 0)
 #define COLOR_GREEN pixels.Color(0, 255, 0)
 #define COLOR_BLUE pixels.Color(0, 0, 255)
-#define DEFAULT_BRIGHTNESS 150
+#define DEFAULT_BRIGHTNESS 128
 
-void v()
+void setup()
 {
     Serial.begin(115200);
     randomSeed(analogRead(0));
