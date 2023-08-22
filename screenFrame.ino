@@ -18,7 +18,7 @@ void setup()
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
 
-    frameDemo();
+    drawFrameFromBothSides(COLOR_CYAN,150);
 }
 
 void loop()
