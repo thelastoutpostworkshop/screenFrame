@@ -191,10 +191,14 @@ void pulse(int speed, unsigned long duration)
 
 void frameDemo(void)
 {
+    pixels.clear();
+    pixels.show();
+    delay(5000);
     drawFrameFromBothSides(COLOR_BLUE, 25);
-    blinkSection(pixelBottomRight, COLOR_RED, false, 200, 4000);
+    blinkSection(pixelBottomRight, COLOR_RED, false, 200, 3000);
     fade(25);
     drawFrameAround(COLOR_RED, 10);
-    blinkSection(pixelTopRight, COLOR_BLUE, false, 100, 4000);
-    pulse(10, 4000);
+    blinkSection(pixelTopLeft, COLOR_BLUE, false, 50, 3000);
+    pulse(10, 3000);
+    fade(10);
 }
