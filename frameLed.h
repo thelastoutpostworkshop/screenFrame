@@ -222,6 +222,6 @@ void frameDemo(void)
     drawFrameAround(COLOR_RED, 10);
     blinkSection(pixelTopLeft, COLOR_BLUE, false, 50, 3000);
     pulse(10, 3000);
-    fade(10);
-    scrollSection(pixelTopRight,COLOR_WHITE,true,50,3000);
+    scrollSection(pixelTopRight,COLOR_WHITE,true,25,2000);
+    blinkSection(pixelBottomLeft, COLOR_RED, false, 200, 2000);
 }
