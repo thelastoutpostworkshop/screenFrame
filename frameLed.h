@@ -159,7 +159,7 @@ void pulse(int speed, unsigned long duration)
         }
 
         // Fading in
-        brightness = 0;
+        brightness = 2;
         while (brightness <= DEFAULT_BRIGHTNESS)
         {
             pixels.setBrightness(brightness);
