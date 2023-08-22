@@ -259,5 +259,5 @@ void frameDemo(void)
     blinkSection(pixelTopLeft, COLOR_BLUE, false, 50, 3000);
     pulse(10, 3000);
     scrollSection(pixelTopRight, COLOR_WHITE, true, 25, 2000);
-    showSectionFromCenter(pixelBottomLeft, COLOR_GREEN, false, 100, 2000);
+    showSectionFromCenter(pixelBottomLeft, COLOR_GREEN, false, 75, 2000);
 }
