@@ -17,6 +17,11 @@ Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 #define COLOR_GREEN pixels.Color(0, 255, 0)
 #define COLOR_BLUE pixels.Color(0, 0, 255)
 #define COLOR_BLACK pixels.Color(0, 0, 0)
+#define COLOR_YELLOW pixels.Color(255, 255, 0)
+#define COLOR_CYAN pixels.Color(0, 255, 255)
+#define COLOR_MAGENTA pixels.Color(255, 0, 255)
+#define COLOR_ORANGE pixels.Color(255, 165, 0)
+#define COLOR_PURPLE pixels.Color(128, 0, 128)
 #define DEFAULT_BRIGHTNESS 128
 
 // Color buffer to preserve original color when doing animation
@@ -122,19 +127,45 @@ void blinkSection(int *section, uint32_t color, bool preserveOriginalColor, uint
     pixels.show();
 }
 
-void fade(int speed) {
+void fade(int speed)
+{
     int brightness = pixels.getBrightness();
-    while(brightness >= 0) {
+    while (brightness >= 0)
+    {
         pixels.setBrightness(brightness);
         pixels.show();
         delay(speed);
-        brightness-=2;
+        brightness -= 2;
     }
     pixels.clear();
     pixels.setBrightness(DEFAULT_BRIGHTNESS);
     pixels.show();
 }
 
-void pulse(void) {
-
+void pulse(int speed, unsigned long duration)
+{
+    unsigned long startTime = millis();
+    int brightness;
+    while (millis() - startTime < duration)
+    {
+        brightness = DEFAULT_BRIGHTNESS;
+        while (brightness >= 0)
+        {
+            pixels.setBrightness(brightness);
+            pixels.show();
+            delay(speed);
+            brightness -= 2;
+        }
+        brightness = 0;
+        while (brightness <= PIXELSCOUNT)
+        {
+            pixels.setBrightness(brightness);
+            pixels.show();
+            delay(speed);
+            brightness += 2;
+        }
+    }
+    pixels.clear();
+    pixels.setBrightness(DEFAULT_BRIGHTNESS);
+    pixels.show();
 }
