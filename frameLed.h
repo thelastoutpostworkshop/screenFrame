@@ -20,7 +20,7 @@ Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 #define DEFAULT_BRIGHTNESS 128
 
 // Color buffer to preserve original color when doing animation
-uint32_t colorBuffer[PIXELSCOUNT+1];
+uint32_t colorBuffer[PIXELSCOUNT + 1];
 
 // Neopixels functions
 //
@@ -99,4 +99,5 @@ void blinkSection(int *section, uint32_t color, bool preserveOriginalColor, uint
         delay(speed);
     }
     restorePixelColor(section);
+    pixels.show();
 }
