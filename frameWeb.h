@@ -152,6 +152,7 @@ struct Command
 // List of Commands available on the web application
 void handleHello(void);
 void handleUpdate(void);
+void handleLedFinder(void);
 
 // List of external functions and variables needed by the web application
 // void showRainbowPixels();
@@ -173,10 +174,13 @@ Command fetchCommands[] = {
 // Post commands name, route and handling function to be called
 Command postCommands[] = {
     {"Upload code", "/update", handleUpdate},
+    {"LED Finder", "/led_finder", handleLedFinder},
+
 };
 
 // Functions to handle post data by the forms on the web application
 const char *uploadEndpoint = "/upload";
+const char *ledSetEndPoint = "/led_set";
 
 // Build a list of commands available to display on the web application
 String commandsList(void)
@@ -324,6 +328,51 @@ void setupCommands(void)
                 }
             }
         });
+
+    // Handling LED Set
+    server.on(ledSetEndPoint, HTTP_POST, []()
+              {
+   if (server.hasArg("led_number")) {
+    String channelId = server.arg("led_number");
+    int startPos = 0;
+    int endPos = channelId.indexOf(',');
+
+    while (endPos != -1) {
+        String numberStr = channelId.substring(startPos, endPos);
+        int number = numberStr.toInt();
+        Serial.println(number);  // Print the extracted number
+
+        startPos = endPos + 1;
+        endPos = channelId.indexOf(',', startPos);
+    }
+
+    // Handle the last number (or the only number if there's just one)
+    int number = channelId.substring(startPos).toInt();
+    Serial.println(number);  // Print the extracted number
+
+    // prefs.putString(channelIdPreference,channelId);
+    // prefs.putString(apiKeyPreference,apiKey);
+      
+    server.send(200, "text/plain", "Data stored successfully.");
+} else {
+    server.send(400, "text/plain", "Missing data in request.");
+} });
+}
+
+void handleLedFinder(void)
+{
+    server.sendHeader("Connection", "close");
+
+    String html = css;
+    html += "<form action='";
+    html += ledSetEndPoint;
+    html += "' method=\"post\">\
+                       <label class='label'>Set LED Number:</label><br>\
+                       <input type=\"text\" name=\"led_number\" size=\"50\">\
+                       <br>\
+                       <input type=\"submit\" value=\"Submit\">\
+                     </form>";
+    server.send(200, "text/html", html);
 }
 
 void initWebServer()
