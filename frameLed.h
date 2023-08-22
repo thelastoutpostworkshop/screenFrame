@@ -12,16 +12,28 @@ int pixelBottomRight[2] = {104, 116};
 
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
-#define COLOR_WHITE pixels.Color(255, 255, 255)
 #define COLOR_RED pixels.Color(255, 0, 0)
 #define COLOR_GREEN pixels.Color(0, 255, 0)
 #define COLOR_BLUE pixels.Color(0, 0, 255)
-#define COLOR_BLACK pixels.Color(0, 0, 0)
 #define COLOR_YELLOW pixels.Color(255, 255, 0)
 #define COLOR_CYAN pixels.Color(0, 255, 255)
 #define COLOR_MAGENTA pixels.Color(255, 0, 255)
 #define COLOR_ORANGE pixels.Color(255, 165, 0)
 #define COLOR_PURPLE pixels.Color(128, 0, 128)
+#define COLOR_BLACK pixels.Color(0, 0, 0)
+#define COLOR_WHITE pixels.Color(255, 255, 255)
+
+uint32_t colors[] = {
+    COLOR_RED,
+    COLOR_GREEN,
+    COLOR_BLUE,
+    COLOR_YELLOW,
+    COLOR_CYAN,
+    COLOR_MAGENTA,
+    COLOR_ORANGE,
+    COLOR_PURPLE
+};
+
 #define DEFAULT_BRIGHTNESS 128
 
 // Color buffer to preserve original color when doing animation
@@ -29,6 +41,12 @@ uint32_t colorBuffer[PIXELSCOUNT + 1];
 
 // Neopixels functions
 //
+
+uint32_t getRandomColor() {
+    int randomIndex = random(0, sizeof(colors) / sizeof(colors[0]));
+    return colors[randomIndex];
+}
+
 void initPixels(void)
 {
     pixels.begin();
