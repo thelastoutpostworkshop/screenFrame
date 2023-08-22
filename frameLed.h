@@ -32,6 +32,26 @@ void initPixels(void)
     pixels.show();
 }
 
+void drawFrameFromBothSides(uint32_t color, uint32_t speed)
+{
+    int t = PIXELSCOUNT / 2;
+    int p1, p2;
+    pixels.setPixelColor(t, color);
+    pixels.show();
+    delay(speed);
+    p1 = t - 1;
+    p2 = t + 1;
+    while (p1 >= 0 && p2 <= PIXELSCOUNT + 1)
+    {
+        pixels.setPixelColor(p1, color);
+        pixels.setPixelColor(p2, color);
+        pixels.show();
+        delay(speed);
+        p1 -= 1;
+        p2 += 1;
+    }
+}
+
 void showDrawFrame(uint32_t color, uint32_t speed)
 {
     for (int i = 0; i < PIXELSCOUNT; i++)
@@ -57,7 +77,7 @@ void showRainBow(void)
 void setPixelSection(int *section, uint32_t color)
 {
     for (int i = section[0]; i <= section[1]; i++)
-    {
+    { //
         pixels.setPixelColor(i, color);
     }
 }

@@ -2,7 +2,6 @@
 #include "frameLed.h"
 #include "frameWeb.h"
 
-
 void setup()
 {
     Serial.begin(115200);
@@ -19,14 +18,13 @@ void setup()
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
 
-    showDrawFrame(COLOR_WHITE, 25);
-    blinkSection(pixelBottomRight,COLOR_GREEN,false,200,10000);
+    drawFrameFromBothSides(COLOR_BLUE, 25);
+    blinkSection(pixelBottomRight, COLOR_GREEN, false, 200, 10000);
 }
 
 void loop()
 {
 }
-
 
 // Task for the web browser
 //
