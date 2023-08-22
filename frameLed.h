@@ -168,8 +168,5 @@ void pulse(int speed, unsigned long duration)
             brightness += 2;  // Adjust this value if fading is too fast or slow
         }
     }
-    pixels.clear();
-    pixels.setBrightness(DEFAULT_BRIGHTNESS);
-    pixels.show();
 }
 
