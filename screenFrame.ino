@@ -20,6 +20,7 @@ void setup()
 
     drawFrameFromBothSides(COLOR_BLUE, 25);
     blinkSection(pixelBottomRight, COLOR_GREEN, false, 200, 10000);
+    fade(100);
 }
 
 void loop()

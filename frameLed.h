@@ -121,3 +121,13 @@ void blinkSection(int *section, uint32_t color, bool preserveOriginalColor, uint
     restorePixelColor(section);
     pixels.show();
 }
+
+void fade(int speed) {
+    int brightness = DEFAULT_BRIGHTNESS-1;
+    while(brightness >= 0) {
+        pixels.setBrightness(brightness);
+        pixels.show();
+        delay(speed);
+        brightness--;
+    }
+}
