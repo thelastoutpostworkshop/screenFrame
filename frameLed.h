@@ -4,12 +4,17 @@
 #define PIXELSPIN 13
 #define PIXELSCOUNT 117
 
+// Top left corner pixels
+// 49,50,51,52,53,54,55,56,57,58
+uint16_t pixelTopLeft[2] = {48, 60};
+
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
 #define COLOR_WHITE pixels.Color(255, 255, 255)
 #define COLOR_RED pixels.Color(255, 0, 0)
 #define COLOR_GREEN pixels.Color(0, 255, 0)
 #define COLOR_BLUE pixels.Color(0, 0, 255)
+#define COLOR_BLACK pixels.Color(0, 0, 0)
 #define DEFAULT_BRIGHTNESS 128
 
 // Neopixels functions
@@ -44,3 +49,25 @@ void showRainBow(void)
     pixels.show();
 }
 
+void setPixelSection(uint16_t *section, uint32_t color)
+{
+    for (uint16_t i = section[0]; i <= section[1]; i++)
+    {
+        pixels.setPixelColor(i,color);
+    }
+    
+}
+
+void blinkSection(uint16_t *section, uint32_t color, uint32_t speed, unsigned long duration)
+{
+    unsigned long startTime = millis();
+    while (millis() - startTime < duration)
+    {
+        setPixelSection(section, color);
+        pixels.show();
+        delay(speed);
+        setPixelSection(section, COLOR_BLACK);
+        pixels.show();
+        delay(speed);
+    }
+}

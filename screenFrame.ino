@@ -20,6 +20,7 @@ void setup()
         1);                   /* Core where the task should run */
 
     showDrawFrame(COLOR_WHITE, 25);
+    blinkSection(pixelTopLeft,COLOR_GREEN,300,10000);
 }
 
 void loop()
