@@ -101,15 +101,47 @@ void playModeFrame(void)
         drawFrameAround(getRandomColor(), getRandomMillis(5, 50));
         break;
     case MODE_FRAME_PULSE:
-        pulse(getRandomMillis(5, 15), 3000); 
+        pulse(getRandomMillis(5, 15), 3000);
         break;
     case MODE_FRAME_BLINK:
+        blinkFrame(getRandomMillis(100, 500), 3000);
         break;
     }
 }
 
 void playModeSection(void)
 {
+    Section_Mode sectionMode = static_cast<Section_Mode>(esp_random() % NUM_MODES_SECTION);
+    Section_Positions sectionPosition = static_cast<Section_Positions>(esp_random() % NUM_SECTION_POSITION);
+
+    int *sectionPixels;
+    switch (sectionPosition)
+    {
+    case TopLeft:
+        sectionPixels = pixelTopLeft;
+        break;
+    case TopRight:
+        sectionPixels = pixelTopRight;
+        break;
+    case BottomLeft:
+        sectionPixels = pixelBottomLeft;
+        break;
+    case BottomRight:
+        sectionPixels = pixelBottomRight;
+        break;
+    }
+    switch (sectionMode)
+    {
+    case MODE_SECTION_BLINK:
+        blinkSection(sectionPixels, getRandomColor(), true, getRandomMillis(25, 500), 3000);
+        break;
+    case MODE_SECTION_CENTER:
+        showSectionFromCenter(sectionPixels, getRandomColor(), true, getRandomMillis(25, 500), 3000);
+        break;
+    case MODE_SECTION_SCROLL:
+        scrollSection(sectionPixels, getRandomColor(), true, getRandomMillis(25, 500), 3000);
+        break;
+    }
 }
 
 // Task for the web browser

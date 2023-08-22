@@ -247,6 +247,23 @@ void pulse(int speed, unsigned long duration)
     }
 }
 
+void blinkFrame(int speed, unsigned long duration)
+{
+    unsigned long startTime = millis();
+    uint32_t color = pixels.getPixelColor(0);
+    while (millis() - startTime < duration)
+    {
+        pixels.fill(color);
+        pixels.show();
+        delay(100);
+        pixels.clear();
+        pixels.show();
+        delay(100);
+    }
+    pixels.fill(color);
+    pixels.show();
+}
+
 void frameDemo(void)
 {
     pixels.clear();
