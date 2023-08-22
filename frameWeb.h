@@ -7,6 +7,8 @@
 #include <Update.h>
 #include "secrets.h"
 
+extern void showStatusWifiConnecting(bool show);
+
 WebServer server(80);
 
 // Web server host name
@@ -322,7 +324,6 @@ void setupCommands(void)
                 }
             }
         });
-
 }
 
 void initWebServer()
@@ -333,7 +334,10 @@ void initWebServer()
     // Wait for connection
     while (WiFi.status() != WL_CONNECTED)
     {
-        delay(500);
+        showStatusWifiConnecting(true);
+        delay(100);
+        showStatusWifiConnecting(false);
+        delay(100);
         Serial.print(".");
     }
 
