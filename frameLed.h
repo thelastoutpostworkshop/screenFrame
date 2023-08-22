@@ -2,7 +2,7 @@
 
 // Neopixels
 #define PIXELSPIN 13
-#define PIXELSCOUNT 119
+#define PIXELSCOUNT 117
 
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
