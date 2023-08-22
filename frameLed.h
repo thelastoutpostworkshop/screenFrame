@@ -4,9 +4,9 @@
 #define PIXELSPIN 13
 #define PIXELSCOUNT 117
 
-// Top left corner pixels
-// 49,50,51,52,53,54,55,56,57,58
+// Sections of pixels
 uint16_t pixelTopLeft[2] = {48, 60};
+uint16_t pixelTopRight[2] = {24, 36};
 
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
