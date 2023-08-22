@@ -2,7 +2,7 @@
 
 // Neopixels
 #define PIXELSPIN 13
-#define PIXELSCOUNT 117
+#define PIXELSCOUNT 116
 
 // Sections of pixels
 uint16_t pixelTopLeft[2] = {48, 60};
