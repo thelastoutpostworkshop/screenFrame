@@ -150,7 +150,7 @@ void pulse(int speed, unsigned long duration)
     {
         // Fading out
         brightness = DEFAULT_BRIGHTNESS;
-        while (brightness >= 0)
+        while (brightness >= 5)
         {
             pixels.setBrightness(brightness);
             pixels.show();
