@@ -127,7 +127,7 @@ void showSectionFromCenter(int *section, uint32_t color, bool preserveOriginalCo
     setPixelSection(section, COLOR_BLACK);
     pixels.show();
     unsigned long startTime = millis();
-    int middlePixel = (section[1] - section[0] + 1) / 2;
+    int middlePixel = ((section[1] - section[0] + 1) / 2) + section[0];
     int p1, p2;
     pixels.setPixelColor(middlePixel, color);
     pixels.show();
