@@ -287,8 +287,10 @@ void handleLedFinder(void)
                        <br>\
                        <input type=\"submit\" value=\"Submit\">\
                      </form>";
+    html += "<a href='/' class='home-button'>Home</a>";  // Home button placed after the submit button
     server.send(200, "text/html", html);
 }
+
 
 void handleLedSet()
 {
