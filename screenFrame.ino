@@ -14,7 +14,7 @@ Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 #define COLOR_BLUE pixels.Color(0, 0, 255)
 #define DEFAULT_BRIGHTNESS 150
 
-void setup()
+void v()
 {
     Serial.begin(115200);
     randomSeed(analogRead(0));
@@ -30,7 +30,7 @@ void setup()
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
 
-    showDrawFrame(COLOR_BLUE, 25);
+    showDrawFrame(COLOR_WHITE, 25);
 }
 
 void loop()
