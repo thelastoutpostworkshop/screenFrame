@@ -44,17 +44,3 @@ void showRainBow(void)
     pixels.show();
 }
 
-void showStatusWifiConnecting(bool show)
-{
-    if (show)
-    {
-        pixels.fill(COLOR_RED);
-        pixels.show();
-    }
-    else
-    {
-        pixels.clear();
-        pixels.show();
-    }
-}
-

@@ -331,6 +331,8 @@ void setupCommands(void)
     server.on(ledSetEndPoint, HTTP_POST, []()
               {
    if (server.hasArg("led_number")) {
+    pixels.clear();
+    pixels.show();
     String channelId = server.arg("led_number");
     int startPos = 0;
     int endPos = channelId.indexOf(',');
@@ -338,7 +340,7 @@ void setupCommands(void)
     while (endPos != -1) {
         String numberStr = channelId.substring(startPos, endPos);
         int number = numberStr.toInt();
-        Serial.println(number);  // Print the extracted number
+        pixels.setPixelColor(number,COLOR_WHITE);
 
         startPos = endPos + 1;
         endPos = channelId.indexOf(',', startPos);
@@ -346,7 +348,8 @@ void setupCommands(void)
 
     // Handle the last number (or the only number if there's just one)
     int number = channelId.substring(startPos).toInt();
-    Serial.println(number);  // Print the extracted number
+        pixels.setPixelColor(number,COLOR_WHITE);
+        pixels.show();
 
     // prefs.putString(channelIdPreference,channelId);
     // prefs.putString(apiKeyPreference,apiKey);
@@ -381,9 +384,11 @@ void initWebServer()
     // Wait for connection
     while (WiFi.status() != WL_CONNECTED)
     {
-        showStatusWifiConnecting(true);
+        pixels.fill(COLOR_RED);
+        pixels.show();
         delay(100);
-        showStatusWifiConnecting(false);
+        pixels.clear();
+        pixels.show();
         delay(100);
         Serial.print(".");
     }
