@@ -7,8 +7,6 @@
 #include <Update.h>
 #include "secrets.h"
 
-extern void showStatusWifiConnecting(bool show);
-
 WebServer server(80);
 
 // Web server host name
