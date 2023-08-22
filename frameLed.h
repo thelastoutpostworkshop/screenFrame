@@ -121,10 +121,45 @@ void restorePixelColor(int *section)
     }
 }
 
+void showSectionFromCenter(int *section, uint32_t color, bool preserveOriginalColor, uint32_t speed, unsigned long duration)
+{
+    savePixelColor(section);
+    setPixelSection(section, COLOR_BLACK);
+    pixels.show();
+    unsigned long startTime = millis();
+    int middlePixel = (section[1] - section[0] + 1) / 2;
+    int p1, p2;
+    pixels.setPixelColor(middlePixel, color);
+    pixels.show();
+    delay(speed);
+    p1 = middlePixel - 1;
+    p2 = middlePixel + 1;
+    while (millis() - startTime < duration)
+    {
+        while (p1 >= section[0] && p2 <= section[1])
+        {
+            pixels.setPixelColor(p1, color);
+            pixels.setPixelColor(p2, color);
+            pixels.show();
+            delay(speed);
+            p1 -= 1;
+            p2 += 1;
+        }
+        setPixelSection(section, COLOR_BLACK);
+        pixels.show();
+        p1 = middlePixel - 1;
+        p2 = middlePixel + 1;
+    }
+
+    restorePixelColor(section);
+    pixels.show();
+}
+
 void scrollSection(int *section, uint32_t color, bool preserveOriginalColor, uint32_t speed, unsigned long duration)
 {
     savePixelColor(section);
     setPixelSection(section, COLOR_BLACK);
+    pixels.show();
     unsigned long startTime = millis();
     int currentLED = section[0];
     while (millis() - startTime < duration)
@@ -222,6 +257,6 @@ void frameDemo(void)
     drawFrameAround(COLOR_RED, 10);
     blinkSection(pixelTopLeft, COLOR_BLUE, false, 50, 3000);
     pulse(10, 3000);
-    scrollSection(pixelTopRight,COLOR_WHITE,true,25,2000);
-    blinkSection(pixelBottomLeft, COLOR_GREEN, false, 75, 2000);
+    scrollSection(pixelTopRight, COLOR_WHITE, true, 25, 2000);
+    showSectionFromCenter(pixelBottomLeft, COLOR_GREEN, false, 25, 2000);
 }
