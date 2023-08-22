@@ -47,7 +47,6 @@ uint32_t getRandomColor()
     return colors[randomIndex];
 }
 
-
 void initPixels(void)
 {
     pixels.begin();
@@ -120,6 +119,29 @@ void restorePixelColor(int *section)
     {
         pixels.setPixelColor(i, colorBuffer[i]);
     }
+}
+
+void scrollSection(int *section, uint32_t color, bool preserveOriginalColor, uint32_t speed, unsigned long duration)
+{
+    savePixelColor(section);
+    setPixelSection(section, COLOR_BLACK);
+    unsigned long startTime = millis();
+    int currentLED = section[0];
+    while (millis() - startTime < duration)
+    {
+        pixels.setPixelColor(currentLED, color);
+        pixels.show();
+        currentLED++;
+        if (currentLED > section[1])
+        {
+            currentLED = section[0];
+            setPixelSection(section, COLOR_BLACK);
+            pixels.show();
+        }
+        delay(speed);
+    }
+    restorePixelColor(section);
+    pixels.show();
 }
 
 void blinkSection(int *section, uint32_t color, bool preserveOriginalColor, uint32_t speed, unsigned long duration)
@@ -201,4 +223,5 @@ void frameDemo(void)
     blinkSection(pixelTopLeft, COLOR_BLUE, false, 50, 3000);
     pulse(10, 3000);
     fade(10);
+    scrollSection(pixelTopRight,COLOR_WHITE,true,50,3000);
 }
