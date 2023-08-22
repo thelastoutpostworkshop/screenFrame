@@ -47,6 +47,10 @@ uint32_t getRandomColor() {
     return colors[randomIndex];
 }
 
+void frameDemo(void) {
+    
+}
+
 void initPixels(void)
 {
     pixels.begin();
