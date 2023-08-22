@@ -148,24 +148,28 @@ void pulse(int speed, unsigned long duration)
     int brightness;
     while (millis() - startTime < duration)
     {
+        // Fading out
         brightness = DEFAULT_BRIGHTNESS;
         while (brightness >= 0)
         {
             pixels.setBrightness(brightness);
             pixels.show();
             delay(speed);
-            brightness -= 2;
+            brightness -= 2;  // Adjust this value if fading is too fast or slow
         }
+
+        // Fading in
         brightness = 0;
-        while (brightness <= PIXELSCOUNT)
+        while (brightness <= DEFAULT_BRIGHTNESS)
         {
             pixels.setBrightness(brightness);
             pixels.show();
             delay(speed);
-            brightness += 2;
+            brightness += 2;  // Adjust this value if fading is too fast or slow
         }
     }
     pixels.clear();
     pixels.setBrightness(DEFAULT_BRIGHTNESS);
     pixels.show();
 }
+
