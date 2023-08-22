@@ -151,6 +151,7 @@ struct Command
 void handleHello(void);
 void handleUpdate(void);
 void handleLedFinder(void);
+void handleDemo(void);
 
 // List of external functions and variables needed by the web application
 // void showRainbowPixels();
@@ -161,7 +162,7 @@ void handleLedFinder(void);
 // Fetch commands name, route and handling function to be called
 Command fetchCommands[] = {
     {"Home", "/", handleHello},
-    // {"Rainbow", "/show_rainbow", handleShowRainbow},
+    {"Demo", "/demo", handleDemo},
     // {"Fast Random", "/show_fastrandom", handleShowFastRandom},
     // {"Darth Vader Breathing", "/darth_vader", handleDarthVaderBreathing},
     // {"Demo Add 1 Subscriber", "/demo_plus_one_subscriber", handleDemoPlusOneSubscriber},
@@ -249,6 +250,12 @@ void handleHello(void)
                   "Connected to: " + String(ssid) +
                   "</div>" + commandsList();
     server.send(200, "text/html", body);
+}
+
+void handleDemo(void)
+{
+    frameDemo();
+    server.send(200);
 }
 
 void handleUpdate(void)
