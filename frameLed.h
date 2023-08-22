@@ -5,10 +5,10 @@
 #define PIXELSCOUNT 116
 
 // Sections of pixels
-uint16_t pixelTopLeft[2] = {48, 60};
-uint16_t pixelTopRight[2] = {24, 36};
-uint16_t pixelBottomLeft[2] = {82, 93};
-uint16_t pixelBottomRight[2] = {104, 116};
+int pixelTopLeft[2] = {48, 60};
+int pixelTopRight[2] = {24, 36};
+int pixelBottomLeft[2] = {82, 93};
+int pixelBottomRight[2] = {104, 116};
 
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
@@ -18,6 +18,9 @@ Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 #define COLOR_BLUE pixels.Color(0, 0, 255)
 #define COLOR_BLACK pixels.Color(0, 0, 0)
 #define DEFAULT_BRIGHTNESS 128
+
+// Color buffer to preserve original color when doing animation
+uint32_t colorBuffer[PIXELSCOUNT+1];
 
 // Neopixels functions
 //
@@ -51,25 +54,49 @@ void showRainBow(void)
     pixels.show();
 }
 
-void setPixelSection(uint16_t *section, uint32_t color)
+void setPixelSection(int *section, uint32_t color)
 {
-    for (uint16_t i = section[0]; i <= section[1]; i++)
+    for (int i = section[0]; i <= section[1]; i++)
     {
-        pixels.setPixelColor(i,color);
+        pixels.setPixelColor(i, color);
     }
-    
 }
 
-void blinkSection(uint16_t *section, uint32_t newColor,uint32_t origColor, uint32_t speed, unsigned long duration)
+void savePixelColor(int *section)
 {
+    for (int i = section[0]; i <= section[1]; i++)
+    {
+        colorBuffer[i] = pixels.getPixelColor(i);
+    }
+}
+
+void restorePixelColor(int *section)
+{
+    for (int i = section[0]; i <= section[1]; i++)
+    {
+        pixels.setPixelColor(i, colorBuffer[i]);
+    }
+}
+
+void blinkSection(int *section, uint32_t color, bool preserveOriginalColor, uint32_t speed, unsigned long duration)
+{
+    savePixelColor(section);
     unsigned long startTime = millis();
     while (millis() - startTime < duration)
     {
-        setPixelSection(section, newColor);
+        setPixelSection(section, color);
         pixels.show();
         delay(speed);
-        setPixelSection(section, origColor);
+        if (preserveOriginalColor)
+        {
+            restorePixelColor(section);
+        }
+        else
+        {
+            setPixelSection(section, COLOR_BLACK);
+        }
         pixels.show();
         delay(speed);
     }
+    restorePixelColor(section);
 }

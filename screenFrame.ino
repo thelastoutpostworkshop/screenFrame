@@ -20,7 +20,7 @@ void setup()
         1);                   /* Core where the task should run */
 
     showDrawFrame(COLOR_WHITE, 25);
-    blinkSection(pixelBottomRight,COLOR_GREEN,pixels.getPixelColor(pixelBottomRight[0]),200,10000);
+    blinkSection(pixelBottomRight,COLOR_GREEN,false,200,10000);
 }
 
 void loop()
