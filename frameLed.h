@@ -149,6 +149,7 @@ void showSectionFromCenter(int *section, uint32_t color, bool preserveOriginalCo
         pixels.show();
         p1 = middlePixel - 1;
         p2 = middlePixel + 1;
+        delay(speed);
     }
 
     restorePixelColor(section);
@@ -258,5 +259,5 @@ void frameDemo(void)
     blinkSection(pixelTopLeft, COLOR_BLUE, false, 50, 3000);
     pulse(10, 3000);
     scrollSection(pixelTopRight, COLOR_WHITE, true, 25, 2000);
-    showSectionFromCenter(pixelBottomLeft, COLOR_GREEN, false, 75, 2000);
+    showSectionFromCenter(pixelBottomLeft, COLOR_GREEN, false, 100, 2000);
 }
