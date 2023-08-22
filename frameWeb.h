@@ -170,9 +170,10 @@ Command fetchCommands[] = {
 };
 
 // Post commands name, route and handling function to be called
+const char *routeLedFinderForm = "/led_finder";
 Command postCommands[] = {
     {"Upload code", "/update", handleUpdate},
-    {"LED Finder", "/led_finder", handleLedFinder},
+    {"LED Finder", routeLedFinderForm, handleLedFinder},
 
 };
 
@@ -273,7 +274,6 @@ void handleNotFound()
     server.send(404, "text/plain", message);
 }
 
-
 void handleLedFinder(void)
 {
     server.sendHeader("Connection", "close");
@@ -315,10 +315,9 @@ void handleLedSet()
         pixels.setPixelColor(number, COLOR_WHITE);
         pixels.show();
 
-        // prefs.putString(channelIdPreference,channelId);
-        // prefs.putString(apiKeyPreference,apiKey);
-
-        server.send(200, "text/plain", "Data stored successfully.");
+        // Redirect back to the form page
+        server.sendHeader("Location", routeLedFinderForm); // Replace "/path_to_form_page" with the actual path to your form page
+        server.send(303);                                  // HTTP 303 See Other
     }
     else
     {
@@ -417,5 +416,3 @@ void initWebServer()
     server.begin();
     Serial.println("HTTP server started");
 }
-
-
