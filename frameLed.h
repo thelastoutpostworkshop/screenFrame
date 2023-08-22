@@ -60,15 +60,15 @@ void setPixelSection(uint16_t *section, uint32_t color)
     
 }
 
-void blinkSection(uint16_t *section, uint32_t color, uint32_t speed, unsigned long duration)
+void blinkSection(uint16_t *section, uint32_t newColor,uint32_t origColor, uint32_t speed, unsigned long duration)
 {
     unsigned long startTime = millis();
     while (millis() - startTime < duration)
     {
-        setPixelSection(section, color);
+        setPixelSection(section, newColor);
         pixels.show();
         delay(speed);
-        setPixelSection(section, COLOR_BLACK);
+        setPixelSection(section, origColor);
         pixels.show();
         delay(speed);
     }
