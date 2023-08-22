@@ -95,16 +95,22 @@ void playGeneralMode(void)
 void playModeFrame(void)
 {
     Frame_Mode frameMode = static_cast<Frame_Mode>(esp_random() % NUM_FRAME_MODES);
+    pixels.fill(COLOR_BLACK);
+    pixels.show();
+    delay(10000L);
     switch (frameMode)
     {
     case MODE_FRAMING:
         drawFrameAround(getRandomColor(), getRandomMillis(5, 50));
+        playModeSection();
         break;
     case MODE_FRAME_PULSE:
         pulse(getRandomMillis(5, 15), 3000);
+        playModeSection();
         break;
     case MODE_FRAME_BLINK:
         blinkFrame(getRandomMillis(100, 500), 3000);
+        playModeSection();
         break;
     }
 }
