@@ -31,8 +31,7 @@ uint32_t colors[] = {
     COLOR_CYAN,
     COLOR_MAGENTA,
     COLOR_ORANGE,
-    COLOR_PURPLE
-};
+    COLOR_PURPLE};
 
 #define DEFAULT_BRIGHTNESS 128
 
@@ -42,14 +41,12 @@ uint32_t colorBuffer[PIXELSCOUNT + 1];
 // Neopixels functions
 //
 
-uint32_t getRandomColor() {
+uint32_t getRandomColor()
+{
     int randomIndex = random(0, sizeof(colors) / sizeof(colors[0]));
     return colors[randomIndex];
 }
 
-void frameDemo(void) {
-    
-}
 
 void initPixels(void)
 {
@@ -177,7 +174,7 @@ void pulse(int speed, unsigned long duration)
             pixels.setBrightness(brightness);
             pixels.show();
             delay(speed);
-            brightness -= 2;  // Adjust this value if fading is too fast or slow
+            brightness -= 2; // Adjust this value if fading is too fast or slow
         }
 
         // Fading in
@@ -187,8 +184,17 @@ void pulse(int speed, unsigned long duration)
             pixels.setBrightness(brightness);
             pixels.show();
             delay(speed);
-            brightness += 2;  // Adjust this value if fading is too fast or slow
+            brightness += 2; // Adjust this value if fading is too fast or slow
         }
     }
 }
 
+void frameDemo(void)
+{
+    drawFrameFromBothSides(COLOR_BLUE, 25);
+    blinkSection(pixelBottomRight, COLOR_RED, false, 200, 10000);
+    fade(25);
+    drawFrameAround(COLOR_RED, 10);
+    blinkSection(pixelTopRight, COLOR_RED, false, 200, 10000);
+    pulse(10, 10000);
+}

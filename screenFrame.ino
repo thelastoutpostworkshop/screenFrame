@@ -18,11 +18,7 @@ void setup()
         NULL,                 /* Task handle. */
         1);                   /* Core where the task should run */
 
-    drawFrameFromBothSides(COLOR_BLUE, 25);
-    blinkSection(pixelBottomRight, COLOR_GREEN, false, 200, 10000);
-    fade(25);
-    drawFrameAround(COLOR_ORANGE,10);
-    pulse(10,10000);
+    frameDemo();
 }
 
 void loop()
