@@ -43,7 +43,7 @@ uint32_t colorBuffer[PIXELSCOUNT + 1];
 
 uint32_t getRandomColor()
 {
-    int randomIndex = random(0, sizeof(colors) / sizeof(colors[0]));
+    int randomIndex = esp_random() % (sizeof(colors) / sizeof(colors[0]));
     return colors[randomIndex];
 }
 
