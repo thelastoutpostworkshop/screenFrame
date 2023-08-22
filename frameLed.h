@@ -52,7 +52,7 @@ void drawFrameFromBothSides(uint32_t color, uint32_t speed)
     }
 }
 
-void showDrawFrame(uint32_t color, uint32_t speed)
+void drawFrameAround(uint32_t color, uint32_t speed)
 {
     for (int i = 0; i < PIXELSCOUNT; i++)
     {
