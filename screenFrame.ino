@@ -15,6 +15,7 @@ enum Frame_Mode
     MODE_FRAMING,
     MODE_FRAME_PULSE,
     MODE_FRAME_BLINK,
+    MODE_FRAME_BOTH_SIDES,
     NUM_FRAME_MODES // This is a trick to get the number of modes
 };
 
@@ -57,7 +58,7 @@ void setup()
     drawFrameFromBothSides(getRandomColor(), 10);
 
     // Scheduled tasks in milliseconds
-    scheduler.addTask(playGeneralMode, 10000L);
+    scheduler.addTask(playGeneralMode, 2700000L);
 }
 
 void loop()
@@ -95,21 +96,28 @@ void playGeneralMode(void)
 void playModeFrame(void)
 {
     Frame_Mode frameMode = static_cast<Frame_Mode>(esp_random() % NUM_FRAME_MODES);
-    pixels.fill(COLOR_BLACK);
-    pixels.show();
-    delay(10000L);
+
     switch (frameMode)
     {
     case MODE_FRAMING:
+        pixels.fill(COLOR_BLACK);
+        pixels.show();
+        delay(10000L);
         drawFrameAround(getRandomColor(), getRandomMillis(5, 50));
         playModeSection();
         break;
     case MODE_FRAME_PULSE:
-        pulse(getRandomMillis(5, 15), 3000);
+        pulse(getRandomMillis(5, 15), getRandomMillis(10000L, 30000L));
         playModeSection();
         break;
     case MODE_FRAME_BLINK:
-        blinkFrame(getRandomMillis(100, 500), 3000);
+        blinkFrame(getRandomMillis(100, 500), getRandomMillis(10000L, 20000L));
+        playModeSection();
+    case MODE_FRAME_BOTH_SIDES:
+        pixels.fill(COLOR_BLACK);
+        pixels.show();
+        delay(10000L);
+        drawFrameFromBothSides(getRandomColor(), getRandomMillis(5, 50));
         playModeSection();
         break;
     }
@@ -139,13 +147,13 @@ void playModeSection(void)
     switch (sectionMode)
     {
     case MODE_SECTION_BLINK:
-        blinkSection(sectionPixels, getRandomColor(), true, getRandomMillis(25, 500), 3000);
+        blinkSection(sectionPixels, getRandomColor(), true, getRandomMillis(25, 500), getRandomMillis(60000L, 120000L));
         break;
     case MODE_SECTION_CENTER:
-        showSectionFromCenter(sectionPixels, getRandomColor(), true, getRandomMillis(25, 500), 3000);
+        showSectionFromCenter(sectionPixels, getRandomColor(), true, getRandomMillis(15, 100), getRandomMillis(60000L, 120000L));
         break;
     case MODE_SECTION_SCROLL:
-        scrollSection(sectionPixels, getRandomColor(), true, getRandomMillis(25, 500), 3000);
+        scrollSection(sectionPixels, getRandomColor(), true, getRandomMillis(15, 100), getRandomMillis(60000L, 120000L));
         break;
     }
 }
