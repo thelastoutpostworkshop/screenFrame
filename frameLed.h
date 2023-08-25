@@ -2,7 +2,7 @@
 
 // Neopixels
 #define PIXELSPIN 13
-#define PIXELSCOUNT 116
+#define PIXELSCOUNT 118
 
 // Sections of pixels
 int pixelTopLeft[2] = {48, 60};
@@ -33,7 +33,7 @@ uint32_t colors[] = {
     COLOR_ORANGE,
     COLOR_PURPLE};
 
-#define DEFAULT_BRIGHTNESS 128
+#define DEFAULT_BRIGHTNESS 255
 
 // Color buffer to preserve original color when doing animation
 uint32_t colorBuffer[PIXELSCOUNT + 1];
