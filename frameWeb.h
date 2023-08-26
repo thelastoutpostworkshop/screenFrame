@@ -95,7 +95,7 @@ const char *htmlPageUpdate =
     "body {"
     "    font-size: 40px;" /* Change the size as needed */
     "}"
-    "input[type=submit], input[type=file] {"
+    "input[type=submit], input[type=file], #homeButton {"
     "    font-size: 40px;"    /* Change the size as needed */
     "    padding: 10px 20px;" /* Change the padding as needed */
     "}"
@@ -103,12 +103,21 @@ const char *htmlPageUpdate =
     "    width: 100%;"
     "    height: 100px;" /* Increase the height as needed */
     "}"
+    "#successMessage {"
+    "    display: none;" /* Initially hidden */
+    "    color: green;"
+    "}"
     "</style>"
     "<form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>"
     "<input type='file' name='update'>"
     "<input type='submit' value='Update'>"
     "</form>"
     "<progress id='prg' value='0' max='100'></progress>"
+    "<div id='successMessage'>"
+    "Upload completed successfully!"
+    "<br>"
+    "<button id='homeButton' onclick='window.location=\"/\"'>Return to Home</button>"
+    "</div>"
     "<script>"
     "$('form').submit(function(e){"
     "    e.preventDefault();"
@@ -131,13 +140,14 @@ const char *htmlPageUpdate =
     "            return xhr;"
     "        },"
     "        success:function(d, s) {"
-    "            console.log('success!')"
+    "            $('#successMessage').show();" // Show the success message and button
     "        },"
     "        error: function (a, b, c) {"
     "        }"
     "    });"
     "});"
     "</script>";
+
 
 // Structure to store commands available on the web application
 struct Command
