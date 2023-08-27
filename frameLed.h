@@ -8,7 +8,7 @@
 int pixelTopLeft[2] = {48, 60};
 int pixelTopRight[2] = {24, 36};
 int pixelBottomLeft[2] = {82, 93};
-int pixelBottomRight[2] = {104, 116};
+int pixelBottomRight[2] = {104, 118};
 
 Adafruit_NeoPixel pixels(PIXELSCOUNT, PIXELSPIN, NEO_GRB + NEO_KHZ800);
 
