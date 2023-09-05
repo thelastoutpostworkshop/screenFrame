@@ -58,7 +58,8 @@ void setup()
     drawFrameFromBothSides(getRandomColor(), 10);
 
     // Scheduled tasks in milliseconds
-    scheduler.addTask(playGeneralMode, 2700000L);
+    scheduler.addTask(playModeFrame, 2700000L);
+    scheduler.addTask(playModeSection, 900000L);
 }
 
 void loop()
@@ -76,21 +77,6 @@ uint32_t getRandomMillis(uint32_t minMillis, uint32_t maxMillis)
         maxMillis = temp;
     }
     return minMillis + (esp_random() % (maxMillis - minMillis + 1));
-}
-
-void playGeneralMode(void)
-{
-    // Randomly select a mode
-    General_Mode generalMode = static_cast<General_Mode>(esp_random() % NUM_MODES_GENERAL);
-    switch (generalMode)
-    {
-    case MODE_FRAME:
-        playModeFrame();
-        break;
-    case MODE_SECTION:
-        playModeSection();
-        break;
-    }
 }
 
 void playModeFrame(void)
