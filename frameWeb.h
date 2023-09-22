@@ -282,7 +282,7 @@ void handleSuspendAnimations(void)
 
 void handleAnimateSection(void)
 {
-    showSectionFromCenter(pixelBottomRight, getRandomColor(), true, getRandomMillis(25, 500), getRandomMillis(60000L, 120000L));
+    showSectionFromCenter(pixelBottomRight, getRandomColor(), true, getRandomMillis(100, 200), getRandomMillis(60000L, 120000L));
     server.send(200);
 }
 
