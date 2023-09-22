@@ -200,7 +200,6 @@ String commandsList(void)
                           <h1>Commands</h1>";
     for (Command &cmd : fetchCommands)
     {
-
         if (cmd.endpoint == "/update")
         {
             commandList += "<button style='font-size: 40px; padding: 15px; width: 90%; box-sizing: border-box; margin: 20px 5%; border-radius: 25px;' onclick=\"location.href='";
@@ -224,9 +223,7 @@ String commandsList(void)
             commandList += cmd.endpoint;
             commandList += "' style='font-size: 40px; padding: 15px; width: 90%; box-sizing: border-box; margin: 20px 5%; border-radius: 25px;' onclick='this.classList.add(\"loading\"); this.innerHTML=\"<div class=spinner></div>\"; fetch(\"";
             commandList += cmd.endpoint;
-            commandList += "\").then(() => { this.classList.remove(\"loading\"); this.textContent=\"";
-            commandList += cmd.name;
-            commandList += "\"; })'>";
+            commandList += "\").then(response => response.text()).then(data => { document.body.innerHTML = data; this.classList.remove(\"loading\"); })'>";
         }
 
         commandList += cmd.name;
@@ -237,7 +234,6 @@ String commandsList(void)
                     <h1>Settings Configuration</h1>";
     for (Command &cmd : postCommands)
     {
-
         commandList += "<button style='font-size: 40px; padding: 15px; width: 90%; box-sizing: border-box; margin: 20px 5%; border-radius: 25px;' onclick=\"location.href='";
         commandList += cmd.endpoint;
         commandList += "'\">";
@@ -272,14 +268,11 @@ void handleHello(void)
     server.send(200, "text/html", body);
 }
 
-
 void handleSuspendAnimations(void)
 {
     suspendAnimations = !suspendAnimations;
-    server.sendHeader("Location", "/hello"); // Set the Location header to the URL of the hello handler
-    server.send(303); // Send a See Other response, causing the browser to navigate to the /hello URL
+    handleHello();
 }
-
 
 void handleDemo(void)
 {
