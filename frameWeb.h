@@ -193,7 +193,7 @@ Command postCommands[] = {
 // Functions to handle post data by the forms on the web application
 const char *uploadEndpoint = "/upload";
 const char *ledSetEndPoint = "/led_set";
-const char *frameColorEndPoint = "set_frame_color";
+const char *frameColorEndPoint = "/set_frame_color";
 
 // Build a list of commands available to display on the web application
 String commandsList(void)
