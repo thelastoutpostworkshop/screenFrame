@@ -272,17 +272,19 @@ void handleHello(void)
     server.send(200, "text/html", body);
 }
 
-void handleDemo(void)
-{
-    frameDemo();
-    server.send(200);
-}
 
 void handleSuspendAnimations(void)
 {
     suspendAnimations = !suspendAnimations;
-    handleHello();
-    // server.send(200);
+    server.sendHeader("Location", "/hello"); // Set the Location header to the URL of the hello handler
+    server.send(303); // Send a See Other response, causing the browser to navigate to the /hello URL
+}
+
+
+void handleDemo(void)
+{
+    frameDemo();
+    server.send(200);
 }
 
 void handleUpdate(void)
