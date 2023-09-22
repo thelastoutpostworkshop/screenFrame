@@ -42,6 +42,10 @@ uint32_t getRandomMillis(uint32_t minMillis, uint32_t maxMillis)
 
 void playModeFrame(void)
 {
+    if (suspendAnimations)
+    {
+        return;
+    }
     Frame_Mode frameMode = static_cast<Frame_Mode>(esp_random() % NUM_FRAME_MODES);
 
     switch (frameMode)
@@ -72,6 +76,10 @@ void playModeFrame(void)
 
 void playModeSection(void)
 {
+    if (suspendAnimations)
+    {
+        return;
+    }
     Section_Mode sectionMode = static_cast<Section_Mode>(esp_random() % NUM_MODES_SECTION);
     Section_Positions sectionPosition = static_cast<Section_Positions>(esp_random() % NUM_SECTION_POSITION);
 

@@ -38,3 +38,5 @@ enum Section_Positions
 
 // Task Scheduler called in the Loop function
 TaskScheduler scheduler;
+
+bool suspendAnimations = false;
