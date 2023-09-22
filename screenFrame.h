@@ -1,7 +1,10 @@
 #include <HTTPClient.h>
 #include "frameLed.h"
-#include "frameWeb.h"
 #include "scheduler.h"
+
+#ifndef SCREEN_FRAME
+#define SCREEN_FRAME
+#endif
 
 enum General_Mode
 {

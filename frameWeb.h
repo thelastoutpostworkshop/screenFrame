@@ -6,6 +6,9 @@
 #include <ESPmDNS.h>
 #include <Update.h>
 #include "secrets.h"
+#ifndef SCREEN_FRAME
+#include "screenFrame.h"
+#endif
 
 WebServer server(80);
 
@@ -148,7 +151,6 @@ const char *htmlPageUpdate =
     "});"
     "</script>";
 
-
 // Structure to store commands available on the web application
 struct Command
 {
@@ -162,17 +164,13 @@ void handleHello(void);
 void handleUpdate(void);
 void handleLedFinder(void);
 void handleDemo(void);
-
-// List of external functions and variables needed by the web application
-// void showRainbowPixels();
-// void playDarthVadedBreathing(void);
-// void applyNewSubscriberCount(int);
-// void showFastRandomPixels(void);
+void handleSuspendAnimations(void);
 
 // Fetch commands name, route and handling function to be called
 Command fetchCommands[] = {
     {"Home", "/", handleHello},
     {"Demo", "/demo", handleDemo},
+    {"Demo", "/suspendAnimations", handleSuspendAnimations},
     // {"Fast Random", "/show_fastrandom", handleShowFastRandom},
     // {"Darth Vader Breathing", "/darth_vader", handleDarthVaderBreathing},
     // {"Demo Add 1 Subscriber", "/demo_plus_one_subscriber", handleDemoPlusOneSubscriber},
@@ -268,6 +266,12 @@ void handleDemo(void)
     server.send(200);
 }
 
+void handleSuspendAnimations(void)
+{
+    suspendAnimations = !suspendAnimations;
+    server.send(200);
+}
+
 void handleUpdate(void)
 {
     server.sendHeader("Connection", "close");
@@ -304,10 +308,9 @@ void handleLedFinder(void)
                        <br>\
                        <input type=\"submit\" value=\"Submit\">\
                      </form>";
-    html += "<a href='/' class='home-button'>Home</a>";  // Home button placed after the submit button
+    html += "<a href='/' class='home-button'>Home</a>"; // Home button placed after the submit button
     server.send(200, "text/html", html);
 }
-
 
 void handleLedSet()
 {
