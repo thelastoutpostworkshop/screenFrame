@@ -335,11 +335,11 @@ void handleFrameColor(void)
 
     html += "' method=\"post\">\
                        <label class=' label '>Set Red (0-255):</label><br>\
-                       <input type=' number ' name=' red ' min=' 0 ' max=' 255 ' value=' 0 '><br>\
+                       <input type=\"number\" name=\"red\" min=\"0\" max=\"255\" value=\"0\"><br>\
                        <label class=' label '>Set Green (0-255):</label><br>\
-                       <input type=' number ' name=' green ' min=' 0 ' max=' 255 ' value=' 0 '><br>\
+                       <input type=\"number\" name=\"green\" min=\"0\" max=\"255\" value=\"0\"><br>\
                        <label class=' label '>Set Blue (0-255):</label><br>\
-                       <input type=' number ' name=' blue ' min=' 0 ' max=' 255 ' value=' 0 '><br>\
+                       <input type=\"number\" name=\"blue\" min=\"0\" max=\"255\" value=\"0\"><br>\
                        <input type=\"submit\" value=\"Submit\">\
                      </form>";
     html += "<a href='/' class='home-button'>Home</a>"; // Home button placed after the submit button
