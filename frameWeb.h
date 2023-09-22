@@ -395,8 +395,8 @@ void handleLedSet()
         pixels.show();
 
         // Redirect back to the form page
-        server.sendHeader("Location", routeLedFinderForm); // Replace "/path_to_form_page" with the actual path to your form page
-        server.send(303);                                  // HTTP 303 See Other
+        // server.sendHeader("Location", routeLedFinderForm); // Replace "/path_to_form_page" with the actual path to your form page
+        server.send(200);                                  
     }
     else
     {

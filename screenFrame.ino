@@ -27,7 +27,7 @@ void setup()
 void loop()
 {
     scheduler.runTasks();
-    delay(10);
+    delay(1);
 }
 
 uint32_t getRandomMillis(uint32_t minMillis, uint32_t maxMillis)
