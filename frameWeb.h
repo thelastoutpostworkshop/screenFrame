@@ -357,7 +357,7 @@ void handleFrameColorSet()
         String blue = server.arg("blue");
 
         uint32_t frame_color = pixels.Color(red.toInt(), green.toInt(), blue.toInt());
-        drawFrameAround(frame_color,100);
+        drawFrameAround(frame_color,0);
 
         // Redirect back to the form page
         server.sendHeader("Location", routeFrameColor); 
