@@ -165,6 +165,7 @@ void handleUpdate(void);
 void handleLedFinder(void);
 void handleDemo(void);
 void handleSuspendAnimations(void);
+void handleFrameColor(void);
 
 // Fetch commands name, route and handling function to be called
 Command fetchCommands[] = {
@@ -180,15 +181,19 @@ Command fetchCommands[] = {
 
 // Post commands name, route and handling function to be called
 const char *routeLedFinderForm = "/led_finder";
+const char *routeFrameColor = "/frame_color";
+
 Command postCommands[] = {
     {"Upload code", "/update", handleUpdate},
     {"LED Finder", routeLedFinderForm, handleLedFinder},
+    {"Frame Color", routeFrameColor, handleFrameColor},
 
 };
 
 // Functions to handle post data by the forms on the web application
 const char *uploadEndpoint = "/upload";
 const char *ledSetEndPoint = "/led_set";
+const char *frameColorEndPoint = "set_frame_color";
 
 // Build a list of commands available to display on the web application
 String commandsList(void)
@@ -315,6 +320,27 @@ void handleLedFinder(void)
                        <input type=\"text\" name=\"led_number\" size=\"50\">\
                        <br>\
                        <input type=\"submit\" value=\"Submit\">\
+                     </form>";
+    html += "<a href='/' class='home-button'>Home</a>"; // Home button placed after the submit button
+    server.send(200, "text/html", html);
+}
+
+void handleFrameColor(void)
+{
+    server.sendHeader("Connection", "close");
+
+    String html = css;
+    html += "<form action='";
+    html += frameColorEndPoint;
+
+    html += "' method=' post '>\
+                       <label class=' label '>Set Red (0-255):</label><br>\
+                       <input type=' number ' name=' red ' min=' 0 ' max=' 255 ' value=' 0 '><br>\
+                       <label class=' label '>Set Green (0-255):</label><br>\
+                       <input type=' number ' name=' green ' min=' 0 ' max=' 255 ' value=' 0 '><br>\
+                       <label class=' label '>Set Blue (0-255):</label><br>\
+                       <input type=' number ' name=' blue ' min=' 0 ' max=' 255 ' value=' 0 '><br>\
+                       <input type=' submit ' value=' Submit'>\
                      </form>";
     html += "<a href='/' class='home-button'>Home</a>"; // Home button placed after the submit button
     server.send(200, "text/html", html);
