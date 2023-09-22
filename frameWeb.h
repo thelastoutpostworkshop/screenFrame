@@ -170,7 +170,7 @@ void handleSuspendAnimations(void);
 Command fetchCommands[] = {
     {"Home", "/", handleHello},
     {"Demo", "/demo", handleDemo},
-    {"Demo", "/suspendAnimations", handleSuspendAnimations},
+    {"Suspend Animations", "/suspendAnimations", handleSuspendAnimations},
     // {"Fast Random", "/show_fastrandom", handleShowFastRandom},
     // {"Darth Vader Breathing", "/darth_vader", handleDarthVaderBreathing},
     // {"Demo Add 1 Subscriber", "/demo_plus_one_subscriber", handleDemoPlusOneSubscriber},
@@ -200,6 +200,7 @@ String commandsList(void)
                           <h1>Commands</h1>";
     for (Command &cmd : fetchCommands)
     {
+
         if (cmd.endpoint == "/update")
         {
             commandList += "<button style='font-size: 40px; padding: 15px; width: 90%; box-sizing: border-box; margin: 20px 5%; border-radius: 25px;' onclick=\"location.href='";
@@ -208,6 +209,17 @@ String commandsList(void)
         }
         else
         {
+            if (cmd.endpoint == "/suspendAnimations")
+            {
+                if (suspendAnimations)
+                {
+                    cmd.name = "Enable Animations";
+                }
+                else
+                {
+                    cmd.name = "Suspend Animations";
+                }
+            }
             commandList += "<button id='";
             commandList += cmd.endpoint;
             commandList += "' style='font-size: 40px; padding: 15px; width: 90%; box-sizing: border-box; margin: 20px 5%; border-radius: 25px;' onclick='this.classList.add(\"loading\"); this.innerHTML=\"<div class=spinner></div>\"; fetch(\"";
