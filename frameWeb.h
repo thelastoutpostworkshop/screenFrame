@@ -346,6 +346,29 @@ void handleFrameColor(void)
     server.send(200, "text/html", html);
 }
 
+void handleFrameColorSet()
+{
+    if (server.hasArg("red"))
+    {
+        pixels.clear();
+        pixels.show();
+        String red = server.arg("red");
+        String green = server.arg("green");
+        String blue = server.arg("blue");
+
+        uint32_t frame_color = pixels.Color(red.toInt(), green.toInt(), blue.toInt());
+        drawFrameAround(frame_color,100);
+
+        // Redirect back to the form page
+        server.sendHeader("Location", routeFrameColor); 
+        server.send(303);                                  
+    }
+    else
+    {
+        server.send(400, "text/plain", "Missing data in request.");
+    }
+}
+
 void handleLedSet()
 {
     if (server.hasArg("led_number"))
@@ -437,6 +460,7 @@ void setupCommands(void)
 
     // Handling LED Set
     server.on(ledSetEndPoint, HTTP_POST, handleLedSet);
+    server.on(frameColorEndPoint, HTTP_POST, handleFrameColorSet);
 }
 
 void initWebServer()
