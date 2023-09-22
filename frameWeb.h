@@ -281,7 +281,8 @@ void handleDemo(void)
 void handleSuspendAnimations(void)
 {
     suspendAnimations = !suspendAnimations;
-    server.send(200);
+    handleHello();
+    // server.send(200);
 }
 
 void handleUpdate(void)
