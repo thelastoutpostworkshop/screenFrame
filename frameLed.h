@@ -38,6 +38,19 @@ uint32_t colors[] = {
 // Color buffer to preserve original color when doing animation
 uint32_t colorBuffer[PIXELSCOUNT + 1];
 
+
+uint32_t getRandomMillis(uint32_t minMillis, uint32_t maxMillis)
+{
+    if (minMillis > maxMillis)
+    {
+        // Swap values if they are in the wrong order
+        uint32_t temp = minMillis;
+        minMillis = maxMillis;
+        maxMillis = temp;
+    }
+    return minMillis + (esp_random() % (maxMillis - minMillis + 1));
+}
+
 // Neopixels functions
 //
 

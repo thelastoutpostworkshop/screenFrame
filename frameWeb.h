@@ -166,11 +166,13 @@ void handleLedFinder(void);
 void handleDemo(void);
 void handleSuspendAnimations(void);
 void handleFrameColor(void);
+void handleAnimateSection(void);
 
 // Fetch commands name, route and handling function to be called
 Command fetchCommands[] = {
     {"Home", "/", handleHello},
     {"Demo", "/demo", handleDemo},
+    {"Animate Section", "/animateSection", handleAnimateSection},
     {"Suspend Animations", "/suspendAnimations", handleSuspendAnimations},
     // {"Fast Random", "/show_fastrandom", handleShowFastRandom},
     // {"Darth Vader Breathing", "/darth_vader", handleDarthVaderBreathing},
@@ -187,7 +189,6 @@ Command postCommands[] = {
     {"Upload code", "/update", handleUpdate},
     {"LED Finder", routeLedFinderForm, handleLedFinder},
     {"Frame Color", routeFrameColor, handleFrameColor},
-
 };
 
 // Functions to handle post data by the forms on the web application
@@ -279,6 +280,12 @@ void handleSuspendAnimations(void)
     handleHello();
 }
 
+void handleAnimateSection(void)
+{
+    blinkSection(pixelBottomRight, getRandomColor(), true, getRandomMillis(25, 500), getRandomMillis(60000L, 120000L));
+    server.send(200);
+}
+
 void handleDemo(void)
 {
     frameDemo();
@@ -357,11 +364,11 @@ void handleFrameColorSet()
         String blue = server.arg("blue");
 
         uint32_t frame_color = pixels.Color(red.toInt(), green.toInt(), blue.toInt());
-        drawFrameAround(frame_color,0);
+        drawFrameAround(frame_color, 0);
 
         // Redirect back to the form page
-        server.sendHeader("Location", routeFrameColor); 
-        server.send(303);                                  
+        server.sendHeader("Location", routeFrameColor);
+        server.send(303);
     }
     else
     {
@@ -396,7 +403,7 @@ void handleLedSet()
 
         // Redirect back to the form page
         // server.sendHeader("Location", routeLedFinderForm); // Replace "/path_to_form_page" with the actual path to your form page
-        server.send(200);                                  
+        server.send(200);
     }
     else
     {
